@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+
+<h:head>
+    <!--<h:outputStylesheet name="webjars/font-awesome/4.4.0/css/font-awesome.css"/>-->
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Cadastro de produtos</title>
+</h:head>
+
+
+<h:body>
+
+    <p:growl id="mensagem"/>
+
+    <h:form id="formListagem">
+        <p:panel header="Produtos - Listagem">
+            <p:dataTable emptyMessage="Nenhum registro encontrado"
+                         paginator="true"
+                         value="#{produtoController.produtos}"
+                         var="produto"
+                         rows="15"
+                         id="dataTableListagem">
+
+                <f:facet name="footer">
+                    <p:commandButton value="Novo"
+                                     oncomplete="PF('dialogo').show();"
+                                     actionListener="#{produtoController.novo()}"
+                                     update=":mensagem :formCadastro:panelGridCadastro">
+                        <f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
+                    </p:commandButton>
+                </f:facet>
+
+                <p:column headerText="Nome" sortBy="#{produto.nome}" filterBy="#{produto.nome}">
+                    <h:outputText value="#{produto.nome}"/>
+                </p:column>
+
+                <p:column headerText="Descrição" sortBy="#{produto.descricao}" filterBy="#{produto.descricao}">
+                    <h:outputText value="#{produto.descricao}"/>
+                </p:column>
+
+                <p:column headerText="Preço" sortBy="#{produto.preco}" filterBy="#{produto.preco}">
+                    <h:outputText value="#{produto.preco}"/>
+                </p:column>
+
+                <p:column headerText="Quantidade" sortBy="#{produto.quantidade}" filterBy="#{produto.quantidade}">
+                    <h:outputText value="#{produto.quantidade}"/>
+                </p:column>
+
+                <p:column headerText="Fabricante" sortBy="#{produto.fabricante.nome}">
+                    <h:outputText value="#{produto.fabricante.nome}"/>
+                </p:column>
+
+                <p:column headerText="Opções">
+                    <p:commandButton icon="ui-icon-search">
+                    </p:commandButton>
+
+                    <p:commandButton icon="ui-icon-pencil"
+                                     title="Editar"
+                                     actionListener="#{produtoController.editar}"
+                                     update=":formCadastro:panelGridCadastro"
+                                     oncomplete="PF('dialogo').show();">
+                        <f:attribute name="selecionado" value="#{produto}"/>
+                        <f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
+                    </p:commandButton>
+
+                    <p:commandButton icon="ui-icon-trash"
+                                     title="Excluir"
+                                     actionListener="#{produtoController.excluir}"
+                                     update=":mensagem :formListagem:dataTableListagem">
+                        <p:confirm header="Confirmação"
+                                   message="Deseja excluir o produto ?!" icon="ui-icon-alert"/>
+                        <f:attribute name="selecionado" value="#{produto}"/>
+                    </p:commandButton>
+                </p:column>
+
+            </p:dataTable>
+            <p:confirmDialog global="true">
+                <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check"/>
+                <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times"/>
+            </p:confirmDialog>
+        </p:panel>
+    </h:form>
+
+    <p:dialog header="produtos - Cadastro"
+              widgetVar="dialogo"
+              draggable="false"
+              resizable="false"
+              modal="true"
+              closable="false">
+        <h:form id="formCadastro">
+            <h:panelGrid id="panelGridCadastro" columns="2">
+
+                <p:outputLabel value="Nome:"/>
+                <p:inputText maxlength="50" size="30"
+                             value="#{produtoController.produto.nome}"
+                             required="true"
+                             requiredMessage="O campo Nome é obrigatório!"/>
+
+                <p:outputLabel value="Estado:"/>
+                <p:selectOneMenu filter="true"
+                                 value="#{produtoController.produto.estado}"
+                                 converter="omnifaces.SelectItemsConverter"
+                                 required="true"
+                                 requiredMessage="O campo Estado é obrigatório!">
+                    <f:selectItem noSelectionOption="true"
+                                  itemLabel="Selecione um estado"/>
+                    <f:selectItems value="#{produtoController.estados}"
+                                   var="estado"
+                                   itemValue="#{estado}"
+                                   itemLabel="#{estado.nome} - #{estado.sigla}"/>
+
+                </p:selectOneMenu>
+
+            </h:panelGrid>
+
+            <h:panelGrid columns="2">
+                <p:commandButton value="Salvar" actionListener="#{produtoController.salvar}"
+                                 update=":mensagem :formCadastro:panelGridCadastro :formListagem:dataTableListagem"/>
+                <p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();"/>
+            </h:panelGrid>
+
+        </h:form>
+    </p:dialog>
+
+</h:body>
+</html>

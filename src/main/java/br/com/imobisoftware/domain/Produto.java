@@ -17,6 +17,9 @@ import java.math.BigDecimal;
 public class Produto extends GenericDomain {
 
     @Column(length = 80, nullable = false)
+    private String nome;
+
+    @Column(length = 80, nullable = false)
     private String descricao;
 
     @Column(nullable = false)
@@ -59,5 +62,13 @@ public class Produto extends GenericDomain {
 
     public void setFabricante(Fabricante fabricante) {
         this.fabricante = fabricante;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 }

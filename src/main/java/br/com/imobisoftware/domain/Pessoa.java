@@ -1,9 +1,7 @@
 package br.com.imobisoftware.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
+import java.util.Date;
 
 /**
  * Project Name: Drogaria_treinando
@@ -32,6 +30,14 @@ public class Pessoa extends GenericDomain {
 
     @Column(length = 20, nullable = false)
     private String email;
+
+    @Column(nullable = false)
+    @Temporal(TemporalType.DATE)
+    private Date dataDeNascimento;
+
+    @Column(nullable = false)
+    @Temporal(TemporalType.DATE)
+    private Date dataDeCadastro;
 
     @ManyToOne
     @JoinColumn(nullable = false)
@@ -91,5 +97,21 @@ public class Pessoa extends GenericDomain {
 
     public void setEndereco(Endereco endereco) {
         this.endereco = endereco;
+    }
+
+    public Date getDataDeNascimento() {
+        return dataDeNascimento;
+    }
+
+    public void setDataDeNascimento(Date dataDeNascimento) {
+        this.dataDeNascimento = dataDeNascimento;
+    }
+
+    public Date getDataDeCadastro() {
+        return dataDeCadastro;
+    }
+
+    public void setDataDeCadastro(Date dataDeCadastro) {
+        this.dataDeCadastro = dataDeCadastro;
     }
 }
