@@ -1,0 +1,130 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="titulo">Listagem de Cidades</ui:define>
+
+    <ui:define name="corpo">
+
+        <p:growl id="mensagem"/>
+
+        <h1>Cidades</h1>
+
+        <h:form id="formListagem">
+
+            <p:toolbar style="margin-top: 20px" >
+                <p:toolbarGroup>
+                    <p:commandButton value="Novo"
+                                     oncomplete="PF('dialogo').show();"
+                                     actionListener="#{cidadeController.novo()}"
+                                     update=":mensagem :formCadastro:panelGridCadastro">
+                        <f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
+                    </p:commandButton>
+                </p:toolbarGroup>
+                <p:toolbarGroup>
+
+                </p:toolbarGroup>
+            </p:toolbar>
+
+            <p:panel header="Cidades - Listagem">
+                <p:dataTable emptyMessage="Nenhum registro encontrado"
+                             paginator="true"
+                             value="#{cidadeController.cidades}"
+                             var="cidade"
+                             rows="15"
+                             id="dataTableListagem">
+
+                    <f:facet name="footer">
+                        <p:commandButton value="Voltar">
+                        </p:commandButton>
+                    </f:facet>
+
+                    <p:column headerText="Nome" sortBy="#{cidade.nome}" filterBy="#{cidade.nome}">
+                        <h:outputText value="#{cidade.nome}"/>
+                    </p:column>
+
+                    <p:column headerText="Estado" sortBy="#{cidade.estado.nome}">
+                        <h:outputText value="#{cidade.estado.nome}"/>
+                        <h:outputText value=" - "/>
+                        <h:outputText value="#{cidade.estado.sigla}"/>
+                    </p:column>
+
+                    <p:column headerText="Opções">
+                        <p:commandButton icon="ui-icon-search">
+                        </p:commandButton>
+
+                        <p:commandButton icon="ui-icon-pencil"
+                                         title="Editar"
+                                         actionListener="#{cidadeController.editar}"
+                                         update=":formCadastro:panelGridCadastro"
+                                         oncomplete="PF('dialogo').show();">
+                            <f:attribute name="selecionado" value="#{cidade}"/>
+                            <f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
+                        </p:commandButton>
+
+                        <p:commandButton icon="ui-icon-trash"
+                                         title="Excluir"
+                                         actionListener="#{cidadeController.excluir}"
+                                         update=":mensagem :formListagem:dataTableListagem">
+                            <p:confirm header="Confirmação"
+                                       message="Deseja excluir o cidade ?!" icon="ui-icon-alert"/>
+                            <f:attribute name="selecionado" value="#{cidade}"/>
+                        </p:commandButton>
+                    </p:column>
+
+                </p:dataTable>
+                <p:confirmDialog global="true">
+                    <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check"/>
+                    <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times"/>
+                </p:confirmDialog>
+            </p:panel>
+        </h:form>
+
+        <!--mudar para chamar outra tela-->
+        <p:dialog header="Cidades - Cadastro"
+                  widgetVar="dialogo"
+                  draggable="false"
+                  resizable="false"
+                  modal="true"
+                  closable="false">
+            <h:form id="formCadastro">
+                <h:panelGrid id="panelGridCadastro" columns="2">
+
+                    <p:outputLabel value="Nome:"/>
+                    <p:inputText maxlength="50" size="30"
+                                 value="#{cidadeController.cidade.nome}"
+                                 required="true"
+                                 requiredMessage="O campo Nome é obrigatório!"/>
+
+                    <p:outputLabel value="Estado:"/>
+                    <p:selectOneMenu filter="true"
+                                     value="#{cidadeController.cidade.estado}"
+                                     converter="omnifaces.SelectItemsConverter"
+                                     required="true"
+                                     requiredMessage="O campo Estado é obrigatório!">
+                        <f:selectItem noSelectionOption="true"
+                                      itemLabel="Selecione um estado"/>
+                        <f:selectItems value="#{cidadeController.estados}"
+                                       var="estado"
+                                       itemValue="#{estado}"
+                                       itemLabel="#{estado.nome} - #{estado.sigla}"/>
+
+                    </p:selectOneMenu>
+
+                </h:panelGrid>
+
+                <h:panelGrid columns="2">
+                    <p:commandButton value="Salvar" actionListener="#{cidadeController.salvar}"
+                                     update=":mensagem :formCadastro:panelGridCadastro :formListagem:dataTableListagem"/>
+                    <p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();"/>
+                </h:panelGrid>
+
+            </h:form>
+        </p:dialog>
+
+    </ui:define>
+
+</ui:composition>

@@ -44,6 +44,13 @@
         <mapping class="br.com.imobisoftware.domain.Produto"/>
         <mapping class="br.com.imobisoftware.domain.Usuario"/>
         <mapping class="br.com.imobisoftware.domain.Venda"/>
+        <mapping class="br.com.imobisoftware.domain.Imovel"/>
+        <mapping class="br.com.imobisoftware.domain.Conjugue"/>
+        <mapping class="br.com.imobisoftware.domain.ImovelVenda"/>
+        <mapping class="br.com.imobisoftware.domain.ImovelLocacao"/>
+        <mapping class="br.com.imobisoftware.domain.Proprietario"/>
+        <mapping class="br.com.imobisoftware.domain.Inquilino"/>
+
 
 
 

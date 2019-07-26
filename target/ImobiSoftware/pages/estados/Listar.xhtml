@@ -1,0 +1,104 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="titulo">Listagem de Estados</ui:define>
+
+    <ui:define name="corpo">
+
+        <p:growl id="mensagem"/>
+
+        <h1>Estados</h1>
+
+        <h:form id="formListagem">
+
+            <p:toolbar style="margin-top: 20px" >
+                <p:toolbarGroup>
+                    <p:commandButton value="Novo"
+                                     oncomplete="PF('dialogo').show();"
+                                     actionListener="#{estadoController.novo()}"
+                                     update=":mensagem :formCadastro:panelGridCadastro">
+                        <f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
+                    </p:commandButton>
+                </p:toolbarGroup>
+                <p:toolbarGroup>
+
+                </p:toolbarGroup>
+            </p:toolbar>
+            <p:panel header="Estados - Listagem">
+                <p:dataTable emptyMessage="Nenhum registro encontrado"
+                             paginator="true"
+                             value="#{estadoController.estados}"
+                             var="estado"
+                             rows="15"
+                             id="dataTableListagem">
+
+                    <f:facet name="footer">
+                        <p:commandButton value="Voltar">
+                        </p:commandButton>
+                    </f:facet>
+
+                    <p:column headerText="Nome" sortBy="#{estado.nome}" filterBy="#{estado.nome}">
+                        <h:outputText value="#{estado.nome}"/>
+                    </p:column>
+
+                    <p:column headerText="Sigla" sortBy="#{estado.sigla}">
+                        <h:outputText value="#{estado.sigla}"/>
+                    </p:column>
+
+                    <p:column headerText="Opções" styleClass="align-content-center">
+                        <p:commandButton icon="ui-icon-search">
+                        </p:commandButton>
+
+                        <p:commandButton icon="ui-icon-pencil"
+                                         actionListener="#{estadoController.editar}"
+                                         update=":formCadastro:panelGridCadastro"
+                                         oncomplete="PF('dialogo').show();">
+                            <f:attribute name="selecionado" value="#{estado}"/>
+                        </p:commandButton>
+
+                        <p:commandButton icon="ui-icon-trash"
+                                         actionListener="#{estadoController.excluir}"
+                                         update=":mensagem :formListagem:dataTableListagem">
+                            <p:confirm header="Confirmação"
+                                       message="Deseja excluir o estado ?!" icon="ui-icon-alert"/>
+                            <f:attribute name="selecionado" value="#{estado}"/>
+                        </p:commandButton>
+                    </p:column>
+
+                </p:dataTable>
+                <p:confirmDialog global="true">
+                    <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check"/>
+                    <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times"/>
+                </p:confirmDialog>
+            </p:panel>
+        </h:form>
+
+        <p:dialog header="Estados - Cadastro" widgetVar="dialogo" draggable="false" resizable="false" modal="true"
+                  closable="false">
+            <h:form id="formCadastro">
+                <h:panelGrid id="panelGridCadastro" columns="2">
+
+                    <p:outputLabel value="Nome:"/>
+                    <p:inputText maxlength="50" size="30" value="#{estadoController.estado.nome}" required="true"/>
+
+                    <p:outputLabel value="Sigla:"/>
+                    <p:inputText maxlength="2" size="10" value="#{estadoController.estado.sigla}" required="true"/>
+
+                </h:panelGrid>
+
+                <h:panelGrid columns="2">
+                    <p:commandButton value="Salvar" actionListener="#{estadoController.salvar}"
+                                     update=":mensagem :formCadastro:panelGridCadastro :formListagem:dataTableListagem"/>
+                    <p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();"/>
+                </h:panelGrid>
+
+            </h:form>
+        </p:dialog>
+
+    </ui:define>
+
+</ui:composition>

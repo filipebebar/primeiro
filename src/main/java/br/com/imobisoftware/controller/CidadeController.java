@@ -11,6 +11,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 import java.io.Serializable;
+import java.util.EventListener;
 import java.util.List;
 
 /**
@@ -26,6 +27,7 @@ public class CidadeController implements Serializable {
     private List<Cidade> cidades;
     private List<Estado> estados;
     private Cidade cidade;
+    private EventListener evento;
 
     public void novo() {
         try {
@@ -100,7 +102,6 @@ public class CidadeController implements Serializable {
         }
         return false;
     }
-
 
 
 
