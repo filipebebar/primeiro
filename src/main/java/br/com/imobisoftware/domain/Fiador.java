@@ -10,7 +10,7 @@ import javax.persistence.*;
 
 @Entity
 @SuppressWarnings("Serial")
-public class Fiador extends Pessoa{
+public class Fiador extends GenericDomain{
 
     @JoinColumn
     @OneToOne

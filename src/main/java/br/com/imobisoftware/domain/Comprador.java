@@ -9,5 +9,5 @@ import javax.persistence.Entity;
 */
 @Entity
 @SuppressWarnings("Serial")
-public class Comprador extends Pessoa{
+public class Comprador extends GenericDomain{
 }

@@ -10,5 +10,5 @@ import javax.persistence.Entity;
 
 @Entity
 @SuppressWarnings("Serial")
-public class Inquilino extends Pessoa{
+public class Inquilino extends GenericDomain{
 }

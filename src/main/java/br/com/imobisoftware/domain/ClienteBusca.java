@@ -23,6 +23,9 @@ public class ClienteBusca extends GenericDomain {
     @Column(nullable = false, length = 20)
     private String tipo;
 
+    @Column(nullable = false, length = 20)
+    private String valorDaBusca;
+
     @OneToOne
     @JoinColumn(nullable = false)
     private Pessoa pessoa;
@@ -57,5 +60,13 @@ public class ClienteBusca extends GenericDomain {
 
     public void setTipo(String tipo) {
         this.tipo = tipo;
+    }
+
+    public String getValorDaBusca() {
+        return valorDaBusca;
+    }
+
+    public void setValorDaBusca(String valorDaBusca) {
+        this.valorDaBusca = valorDaBusca;
     }
 }

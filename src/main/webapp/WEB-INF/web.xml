@@ -6,7 +6,7 @@
     
     
     <welcome-file-list>
-        <welcome-file>pages/menus/menuprincipal.xhtmll</welcome-file>
+        <welcome-file>pages/logins/login.xhtmll</welcome-file>
     </welcome-file-list>
 
     <!-- Nome da Aplicação -->

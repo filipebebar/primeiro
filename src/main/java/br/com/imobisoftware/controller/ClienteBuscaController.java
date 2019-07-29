@@ -33,6 +33,9 @@ public class ClienteBuscaController implements Serializable {
     private Pessoa pessoa;
 
 
+
+
+
     public void novo() {
         try {
             clienteBusca = new ClienteBusca();

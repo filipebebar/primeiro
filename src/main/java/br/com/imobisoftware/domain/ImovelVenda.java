@@ -14,7 +14,7 @@ import java.math.BigDecimal;
 
 @Entity
 @SuppressWarnings("Serial")
-public class ImovelVenda extends Imovel{
+public class ImovelVenda extends GenericDomain{
 
     @Column(nullable = false, precision = 7, scale = 2)
     private BigDecimal valorDeVenda;

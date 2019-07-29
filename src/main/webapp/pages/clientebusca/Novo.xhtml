@@ -1,0 +1,52 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="titulo">Listagem de Clientes</ui:define>
+
+    <ui:define name="corpo">
+
+        <p:growl id="mensagem"/>
+
+        <h1>Cliente Busca</h1>
+
+
+            <h:form id="formCadastro">
+                <h:panelGrid id="panelGridCadastro" columns="2" >
+
+                    <p:outputLabel value="Nome:"/>
+                    <p:inputText maxlength="50" size="30" value="#{clienteBuscaController.clienteBusca.pessoa.nome}"/>
+
+                    <p:outputLabel value="Telefone principal:"/>
+                    <p:inputText maxlength="10" size="10" value="#{clienteBuscaController.clienteBusca.pessoa.telefone}"/>
+
+                    <p:outputLabel value="Celular / Opcional:"/>
+                    <p:inputText maxlength="10" size="10" value="#{clienteBuscaController.clienteBusca.pessoa.celular}"/>
+
+                    <p:outputLabel value="Valor:"/>
+                    <p:inputText maxlength="10" size="8" value="#{clienteBuscaController.clienteBusca.dataCadastro}"/>
+
+                    <p:outputLabel value="Tipo:"/>
+                    <p:inputText maxlength="20" size="30" value="#{clienteBuscaController.clienteBusca.tipo}"/>
+
+                    <p:outputLabel value="Data de Cadastro:"/>
+                    <p:inputText maxlength="10" size="8" value="#{clienteBuscaController.clienteBusca.dataCadastro}"/>
+
+                </h:panelGrid>
+
+                <h:panelGrid columns="2">
+                    <p:commandButton value="Salvar" actionListener="#{clienteBuscaController.salvar}"
+                                     update=":mensagem :formCadastro:panelGridCadastro :formListagem:dataTableListagem"/>
+                    <p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();"/>
+                </h:panelGrid>
+
+            </h:form>
+
+
+
+    </ui:define>
+
+</ui:composition>

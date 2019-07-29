@@ -11,7 +11,25 @@
 
         <p:growl id="mensagem"/>
 
-        <h:form id="formListagem">
+        <h1>Produtos</h1>
+
+        <h:form id="formListagem" >
+
+            <p:toolbar style="margin-top: 20px" >
+                <p:toolbarGroup align="right">
+                    <p:commandButton value="Novo"
+                                     outcome="/clientebusca/Novo">
+                    </p:commandButton>
+                </p:toolbarGroup>
+                <p:toolbarGroup>
+                    <p:commandButton value="Pesquisar" align="left">
+                        <p:outputLabel value="Pesquisa por Nome: " for="nome"/>
+                        <p:inputText id="nome" size="30" maxlength="30" value="Digite o nome.."/>
+                    </p:commandButton>
+                </p:toolbarGroup>
+            </p:toolbar>
+
+
             <p:panel header="Produtos - Listagem">
                 <p:dataTable emptyMessage="Nenhum registro encontrado"
                              paginator="true"
@@ -19,15 +37,6 @@
                              var="produto"
                              rows="15"
                              id="dataTableListagem">
-
-                    <f:facet name="footer">
-                        <p:commandButton value="Novo"
-                                         oncomplete="PF('dialogo').show();"
-                                         actionListener="#{produtoController.novo()}"
-                                         update=":mensagem :formCadastro:panelGridCadastro">
-                            <f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener"/>
-                        </p:commandButton>
-                    </f:facet>
 
                     <p:column headerText="Nome" sortBy="#{produto.nome}" filterBy="#{produto.nome}">
                         <h:outputText value="#{produto.nome}"/>
@@ -39,7 +48,7 @@
 
                     <p:column headerText="Preço" sortBy="#{produto.preco}">
                         <h:outputText value="#{produto.preco}" styleClass="moeda">
-                            <f:convertNumber locale="pt_BR" minFractionDigits="2"/>
+                            <f:convertNumber type="currency" locale="pt_BR" minFractionDigits="2"/>
                         </h:outputText>
                     </p:column>
 
@@ -116,7 +125,7 @@
                                  required="true"
                                  requiredMessage="O campo Preço é obrigatório!"
                                  converterMessage="Informe um valor válido para o campo 'Preço'">
-                        <f:convertNumber locale="pt_BR" minFractionDigits="2"/>
+                        <f:convertNumber type="currency" locale="pt_BR"/>
                     </p:inputText>
 
                     <p:outputLabel value="Fabricante:"/>

@@ -30,11 +30,12 @@
         <property name="show_sql">true</property>
 
         <!-- Cria as tabelas do banco de dados -->
-        <property name="hbm2ddl.auto">validate</property>
+        <property name="hbm2ddl.auto">create</property>
 
         <!--Mapeando as classes-->
         <mapping class="br.com.imobisoftware.domain.Cidade"/>
         <mapping class="br.com.imobisoftware.domain.Cliente"/>
+        <mapping class="br.com.imobisoftware.domain.ClienteBusca"/>
         <mapping class="br.com.imobisoftware.domain.Endereco"/>
         <mapping class="br.com.imobisoftware.domain.Estado"/>
         <mapping class="br.com.imobisoftware.domain.Fabricante"/>

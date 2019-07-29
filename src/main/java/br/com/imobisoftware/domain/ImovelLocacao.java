@@ -10,7 +10,7 @@ import javax.persistence.Entity;
 
 @SuppressWarnings("Serial")
 @Entity
-public class ImovelLocacao extends Imovel{
+public class ImovelLocacao extends GenericDomain{
 
 
 

@@ -12,7 +12,7 @@ import javax.persistence.ManyToOne;
 
 @Entity
 @SuppressWarnings("Serial")
-public class Proprietario extends Pessoa{
+public class Proprietario extends GenericDomain{
 
     @ManyToOne
     @JoinColumn(nullable = false)
