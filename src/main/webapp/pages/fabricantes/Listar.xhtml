@@ -5,23 +5,23 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui">
 
-    <ui:define name="titulo">Listagem de Clientes</ui:define>
+    <ui:define name="titulo">Listagem de Fabricantes</ui:define>
 
     <ui:define name="corpo">
 
         <p:growl id="mensagem"/>
 
-        <h1>Cliente Busca</h1>
+        <h1>Fabricantes</h1>
 
         <h:form id="formListagem">
 
-            <p:toolbar style="margin-top: 20px" >
+            <p:toolbar style="margin-top: 20px">
                 <p:toolbarGroup>
                     <p:commandButton value="Novo"
                                      oncomplete="PF('dialogo').show();"
-                                     actionListener="#{clienteBuscaController.novo()}"
+                                     actionListener="#{fabricanteController.novo()}"
                                      update=":mensagem :formCadastro:panelGridCadastro">
-                        <f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
+                        <f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener"/>
                     </p:commandButton>
                 </p:toolbarGroup>
                 <p:toolbarGroup>
@@ -30,24 +30,20 @@
             </p:toolbar>
 
 
-            <p:panel header="Cliente Busca - Listagem">
+            <p:panel header="Fabricantes - Listagem">
                 <p:dataTable emptyMessage="Nenhum registro encontrado"
                              paginator="true"
-                             value="#{clienteBuscaController.clientesBusca}"
-                             var="cliente"
+                             value="#{fabricanteController.fabricantes}"
+                             var="fabricante"
                              rows="15"
                              id="dataTableListagem">
 
-                    <p:column headerText="Nome" sortBy="#{cliente.pessoa.nome}" filterBy="#{cliente.pessoa.nome}">
-                        <h:outputText value="#{cliente.pessoa.nome}"/>
+                    <p:column headerText="Nome" sortBy="#{fabricante.nome}" filterBy="#{fabricante.nome}">
+                        <h:outputText value="#{fabricante.nome}"/>
                     </p:column>
 
-                    <p:column headerText="Tipo" sortBy="#{cliente.tipo}">
-                        <h:outputText value="#{cliente.tipo}"/>
-                    </p:column>
-
-                    <p:column headerText="Data de Cadastro" sortBy="#{cliente.tipo}">
-                        <h:outputText value="#{cliente.dataCadastro}"/>
+                    <p:column headerText="Descrição" sortBy="#{fabricante.descricao}">
+                        <h:outputText value="#{fabricante.descricao}"/>
                     </p:column>
 
                     <p:column headerText="Opções" styleClass="align-content-center">
@@ -55,18 +51,20 @@
                         </p:commandButton>
 
                         <p:commandButton icon="ui-icon-pencil"
-                                         actionListener="#{clienteBuscaController.editar}"
+                                         title="Editar"
+                                         actionListener="#{fabricanteController.editar}"
                                          update=":formCadastro:panelGridCadastro"
                                          oncomplete="PF('dialogo').show();">
-                            <f:attribute name="selecionado" value="#{cliente}"/>
+                            <f:attribute name="selecionado" value="#{fabricante}"/>
+                            <f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
                         </p:commandButton>
 
                         <p:commandButton icon="ui-icon-trash"
-                                         actionListener="#{clienteBuscaController.excluir}"
+                                         actionListener="#{fabricanteController.excluir}"
                                          update=":mensagem :formListagem:dataTableListagem">
                             <p:confirm header="Confirmação"
-                                       message="Deseja excluir o estado ?!" icon="ui-icon-alert"/>
-                            <f:attribute name="selecionado" value="#{cliente}"/>
+                                       message="Deseja excluir o fabricante ?!" icon="ui-icon-alert"/>
+                            <f:attribute name="selecionado" value="#{fabricante}"/>
                         </p:commandButton>
                     </p:column>
 
@@ -78,30 +76,28 @@
             </p:panel>
         </h:form>
 
-        <p:dialog header="Estados - Cadastro" widgetVar="dialogo" draggable="false" resizable="false" modal="true"
+        <p:dialog header="Fabricantes - Cadastro" widgetVar="dialogo" draggable="false" resizable="false" modal="true"
                   closable="false">
             <h:form id="formCadastro">
-                <h:panelGrid id="panelGridCadastro" columns="2" >
+
+                <h:panelGrid id="panelGridCadastro" columns="2">
 
                     <p:outputLabel value="Nome:"/>
-                    <p:inputText maxlength="50" size="30" value="#{clienteBuscaController.clienteBusca.pessoa.nome}"/>
+                    <p:inputText maxlength="50" size="30"
+                                 value="#{fabricanteController.fabricante.nome}"
+                                 required="true"
+                                 requiredMessage="O campo Nome é obrigatório!"/>
 
-                    <p:outputLabel value="Telefone principal:"/>
-                    <p:inputText maxlength="10" size="10" value="#{clienteBuscaController.clienteBusca.pessoa.telefone}"/>
-
-                    <p:outputLabel value="Celular / Opcional:"/>
-                    <p:inputText maxlength="10" size="10" value="#{clienteBuscaController.clienteBusca.pessoa.celular}"/>
-
-                    <p:outputLabel value="Tipo:"/>
-                    <p:inputText maxlength="20" size="30" value="#{clienteBuscaController.clienteBusca.tipo}"/>
-
-                    <p:outputLabel value="Data de Cadastro:"/>
-                    <p:inputText maxlength="10" size="8" value="#{clienteBuscaController.clienteBusca.dataCadastro}"/>
+                    <p:outputLabel value="Descrição:"/>
+                    <p:inputText maxlength="50" size="30"
+                                 value="#{fabricanteController.fabricante.descricao}"
+                                 required="true"
+                                 requiredMessage=" O campo Descrição é obrigatório!"/>
 
                 </h:panelGrid>
 
                 <h:panelGrid columns="2">
-                    <p:commandButton value="Salvar" actionListener="#{clienteBuscaController.salvar}"
+                    <p:commandButton value="Salvar" actionListener="#{fabricanteController.salvar}"
                                      update=":mensagem :formCadastro:panelGridCadastro :formListagem:dataTableListagem"/>
                     <p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();"/>
                 </h:panelGrid>

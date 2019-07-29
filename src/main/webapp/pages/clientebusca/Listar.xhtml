@@ -1,96 +1,114 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
 
+    <ui:define name="titulo">Listagem de Clientes</ui:define>
 
-<h:head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title>Cadastro de Estados</title>
-</h:head>
+    <ui:define name="corpo">
 
+        <p:growl id="mensagem"/>
 
-<h:body>
+        <h1>Cliente Busca</h1>
 
-    <p:growl id="mensagem"/>
+        <h:form id="formListagem">
 
-    <h:form id="formListagem">
-        <p:panel header="Estados - Listagem">
-            <p:dataTable emptyMessage="Nenhum registro encontrado"
-                         paginator="true"
-                         value="#{estadoController.estados}"
-                         var="estado"
-                         rows="15"
-                         id="dataTableListagem">
-
-                <f:facet name="footer">
+            <p:toolbar style="margin-top: 20px" >
+                <p:toolbarGroup>
                     <p:commandButton value="Novo"
                                      oncomplete="PF('dialogo').show();"
-                                     actionListener="#{estadoController.novo()}"
-                                     update=":formCadastro:panelGridCadastro">
+                                     actionListener="#{clienteBuscaController.novo()}"
+                                     update=":mensagem :formCadastro:panelGridCadastro">
+                        <f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
                     </p:commandButton>
-                </f:facet>
+                </p:toolbarGroup>
+                <p:toolbarGroup>
 
-                <p:column headerText="Nome" sortBy="#{estado.nome}" filterBy="#{estado.nome}">
-                    <h:outputText value="#{estado.nome}"/>
-                </p:column>
+                </p:toolbarGroup>
+            </p:toolbar>
 
-                <p:column headerText="Sigla" sortBy="#{estado.sigla}">
-                    <h:outputText value="#{estado.sigla}"/>
-                </p:column>
 
-                <p:column headerText="Opções" styleClass="align-content-center">
-                    <p:commandButton icon="ui-icon-search">
-                    </p:commandButton>
+            <p:panel header="Cliente Busca - Listagem">
+                <p:dataTable emptyMessage="Nenhum registro encontrado"
+                             paginator="true"
+                             value="#{clienteBuscaController.clientesBusca}"
+                             var="cliente"
+                             rows="15"
+                             id="dataTableListagem">
 
-                    <p:commandButton icon="ui-icon-pencil"
-                                     actionListener="#{estadoController.editar}"
-                                     update=":formCadastro:panelGridCadastro"
-                                     oncomplete="PF('dialogo').show();">
-                        <f:attribute name="selecionado" value="#{estado}"/>
-                    </p:commandButton>
+                    <p:column headerText="Nome" sortBy="#{cliente.pessoa.nome}" filterBy="#{cliente.pessoa.nome}">
+                        <h:outputText value="#{cliente.pessoa.nome}"/>
+                    </p:column>
 
-                    <p:commandButton icon="ui-icon-trash"
-                                     actionListener="#{estadoController.excluir}"
-                                     update=":mensagem :formListagem:dataTableListagem">
-                        <p:confirm header="Confirmação"
-                                   message="Deseja excluir o estado ?!" icon="ui-icon-alert"/>
-                        <f:attribute name="selecionado" value="#{estado}"/>
-                    </p:commandButton>
-                </p:column>
+                    <p:column headerText="Tipo" sortBy="#{cliente.tipo}">
+                        <h:outputText value="#{cliente.tipo}"/>
+                    </p:column>
 
-            </p:dataTable>
-            <p:confirmDialog global="true">
-                <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check"/>
-                <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times"/>
-            </p:confirmDialog>
-        </p:panel>
-    </h:form>
+                    <p:column headerText="Data de Cadastro" sortBy="#{cliente.tipo}">
+                        <h:outputText value="#{cliente.dataCadastro}"/>
+                    </p:column>
 
-    <p:dialog header="Estados - Cadastro" widgetVar="dialogo" draggable="false" resizable="false" modal="true"
-              closable="false">
-        <h:form id="formCadastro">
-            <h:panelGrid id="panelGridCadastro" columns="2">
+                    <p:column headerText="Opções" styleClass="align-content-center">
+                        <p:commandButton icon="ui-icon-search">
+                        </p:commandButton>
 
-                <p:outputLabel value="Nome:"/>
-                <p:inputText maxlength="50" size="30" value="#{estadoController.estado.nome}"/>
+                        <p:commandButton icon="ui-icon-pencil"
+                                         actionListener="#{clienteBuscaController.editar}"
+                                         update=":formCadastro:panelGridCadastro"
+                                         oncomplete="PF('dialogo').show();">
+                            <f:attribute name="selecionado" value="#{cliente}"/>
+                        </p:commandButton>
 
-                <p:outputLabel value="Sigla:"/>
-                <p:inputText maxlength="2" size="10" value="#{estadoController.estado.sigla}"/>
+                        <p:commandButton icon="ui-icon-trash"
+                                         actionListener="#{clienteBuscaController.excluir}"
+                                         update=":mensagem :formListagem:dataTableListagem">
+                            <p:confirm header="Confirmação"
+                                       message="Deseja excluir o estado ?!" icon="ui-icon-alert"/>
+                            <f:attribute name="selecionado" value="#{cliente}"/>
+                        </p:commandButton>
+                    </p:column>
 
-            </h:panelGrid>
-
-            <h:panelGrid columns="2">
-                <p:commandButton value="Salvar" actionListener="#{estadoController.salvar}"
-                                 update=":mensagem :formCadastro:panelGridCadastro :formListagem:dataTableListagem"/>
-                <p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();"/>
-            </h:panelGrid>
-
+                </p:dataTable>
+                <p:confirmDialog global="true">
+                    <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check"/>
+                    <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times"/>
+                </p:confirmDialog>
+            </p:panel>
         </h:form>
-    </p:dialog>
 
-</h:body>
-</html>
+        <p:dialog header="Estados - Cadastro" widgetVar="dialogo" draggable="false" resizable="false" modal="true"
+                  closable="false">
+            <h:form id="formCadastro">
+                <h:panelGrid id="panelGridCadastro" columns="2" >
+
+                    <p:outputLabel value="Nome:"/>
+                    <p:inputText maxlength="50" size="30" value="#{clienteBuscaController.clienteBusca.pessoa.nome}"/>
+
+                    <p:outputLabel value="Telefone principal:"/>
+                    <p:inputText maxlength="10" size="10" value="#{clienteBuscaController.clienteBusca.pessoa.telefone}"/>
+
+                    <p:outputLabel value="Celular / Opcional:"/>
+                    <p:inputText maxlength="10" size="10" value="#{clienteBuscaController.clienteBusca.pessoa.celular}"/>
+
+                    <p:outputLabel value="Tipo:"/>
+                    <p:inputText maxlength="20" size="30" value="#{clienteBuscaController.clienteBusca.tipo}"/>
+
+                    <p:outputLabel value="Data de Cadastro:"/>
+                    <p:inputText maxlength="10" size="8" value="#{clienteBuscaController.clienteBusca.dataCadastro}"/>
+
+                </h:panelGrid>
+
+                <h:panelGrid columns="2">
+                    <p:commandButton value="Salvar" actionListener="#{clienteBuscaController.salvar}"
+                                     update=":mensagem :formCadastro:panelGridCadastro :formListagem:dataTableListagem"/>
+                    <p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();"/>
+                </h:panelGrid>
+
+            </h:form>
+        </p:dialog>
+
+    </ui:define>
+
+</ui:composition>

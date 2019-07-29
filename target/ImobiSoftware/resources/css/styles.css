@@ -17,6 +17,7 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     margin: 0px;
     font-weight: normal;
+    background-color: grey;
 }
 
 header {
@@ -48,4 +49,11 @@ h1 {
     font-weight: 500;
     padding: 0px;
     margin: 0px;
+}
+
+.ajax-status{
+    position: fixed;
+    right: 10px;
+    width: 35px;
+    height: 35px;
 }
