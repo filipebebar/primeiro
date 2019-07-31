@@ -31,7 +31,7 @@ public class ProdutoController implements Serializable {
         try{
             produto = new Produto();
             FabricanteDAO fabricanteDAO = new FabricanteDAO();
-            fabricantes = fabricanteDAO.listar();
+            fabricantes = fabricanteDAO.listar("nome");
         }catch(RuntimeException ex){
             ex.printStackTrace();
         }
@@ -41,7 +41,7 @@ public class ProdutoController implements Serializable {
     public void listar(){
         try{
             ProdutoDAO produtoDAO = new ProdutoDAO();
-            produtos = produtoDAO.listar();
+            produtos = produtoDAO.listar("nome");
         }catch (RuntimeException ex){
             ex.printStackTrace();
         }
@@ -75,7 +75,7 @@ public class ProdutoController implements Serializable {
         try{
             produto = (Produto) evento.getComponent().getAttributes().get("selecionado");
             ProdutoDAO produtoDAO = new ProdutoDAO();
-            produtos = produtoDAO.listar();
+            produtos = produtoDAO.listar("nome");
         }catch (RuntimeException ex){
             ex.printStackTrace();
         }
@@ -86,9 +86,9 @@ public class ProdutoController implements Serializable {
 
     public void limparTela() {
         ProdutoDAO produtoDAO = new ProdutoDAO();
-        produtos = produtoDAO.listar();
+        produtos = produtoDAO.listar("nome");
         FabricanteDAO fabricanteDAO = new FabricanteDAO();
-        fabricantes = fabricanteDAO.listar();
+        fabricantes = fabricanteDAO.listar("nome");
     }
 
     public boolean validacao() {

@@ -15,26 +15,30 @@
 
         <h:form id="formListagem">
 
-            <p:toolbar style="margin-top: 20px" >
-                <p:toolbarGroup align="right">
-                    <p:button value="Novo" outcome="/pages/clientebusca/Novo"/>
-                </p:toolbarGroup>
-                <p:toolbarGroup>
-                    <p:commandButton value="Pesquisar" align="left">
-                        <p:outputLabel value="Pesquisa por Nome: " for="nome"/>
-                        <p:inputText id="nome" size="30" maxlength="30" value="Digite o nome.."/>
-                    </p:commandButton>
-                </p:toolbarGroup>
-            </p:toolbar>
+            <p:panel header="Cliente Busca - Listagem" style="margin-top: 20px">
 
+                <p:toolbar style="margin-top: 5px; margin-bottom: 5px" >
+                    <p:toolbarGroup align="right">
+                        <p:button value="Novo" outcome="/pages/clientebusca/Novo"/>
+                    </p:toolbarGroup>
+                    <p:toolbarGroup>
+                        <p:commandButton value="Pesquisar" align="left">
+                            <p:outputLabel value="Pesquisa por Nome: " for="nome"/>
+                            <p:inputText id="nome" size="30" maxlength="30" value="Digite o nome.."/>
+                        </p:commandButton>
+                    </p:toolbarGroup>
+                </p:toolbar>
 
-            <p:panel header="Cliente Busca - Listagem">
                 <p:dataTable emptyMessage="Nenhum registro encontrado"
                              paginator="true"
-                             value="#{clienteBuscaController.clientesBusca}"
+                             value="#{clienteBuscaController.clienteBuscaList}"
                              var="cliente"
                              rows="15"
                              id="dataTableListagem">
+
+                    <p:column headerText="Código">
+                        <h:outputText value="#{cliente.pessoa.codigo}"/>
+                    </p:column>
 
                     <p:column headerText="Nome" sortBy="#{cliente.pessoa.nome}">
                         <h:outputText value="#{cliente.pessoa.nome}"/>
@@ -51,8 +55,13 @@
                     </p:column>
 
                     <p:column headerText="Data de Cadastro" sortBy="#{cliente.tipo}">
-                        <h:outputText value="#{cliente.dataCadastro}">
+                        <h:outputText value="#{cliente.pessoa.dataDeCadastro}">
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
+                        </h:outputText>
+                    </p:column>
+
+                    <p:column headerText="Situação">
+                        <h:outputText value="#{cliente.situacao}">
                         </h:outputText>
                     </p:column>
 

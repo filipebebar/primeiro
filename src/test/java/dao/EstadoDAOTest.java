@@ -28,7 +28,7 @@ public class EstadoDAOTest {
     @Ignore
     public void listar() {
         EstadoDAO estadoDAO = new EstadoDAO();
-        List<Estado> resultado = estadoDAO.listar();
+        List<Estado> resultado = estadoDAO.listar("nome");
 
         System.out.println("Total de Registros Encontrados: " + resultado.size());
 

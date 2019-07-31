@@ -4,6 +4,7 @@ import br.com.imobisoftware.util.HibernateUtil;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
 import java.lang.reflect.ParameterizedType;
@@ -43,10 +44,11 @@ public class GenericDAO<Entidade> {
     }
 
     @SuppressWarnings("unchecked")
-    public List<Entidade> listar() {
+    public List<Entidade> listar(String campoOrdenacao) {
         Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
         try {
             Criteria consulta = sessao.createCriteria(classe);
+            consulta.addOrder(Order.asc(campoOrdenacao));
             List<Entidade> resultado = consulta.list();
             return resultado;
         } catch (RuntimeException erro) {

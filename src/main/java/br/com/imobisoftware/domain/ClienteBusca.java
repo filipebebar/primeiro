@@ -1,7 +1,9 @@
 package br.com.imobisoftware.domain;
 
-import javax.persistence.*;
-import java.util.Date;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 /**
  * Project Name: Drogaria_treinando
@@ -13,30 +15,21 @@ import java.util.Date;
 @SuppressWarnings("Serial")
 public class ClienteBusca extends GenericDomain {
 
-    @Column(nullable = false)
-    @Temporal(TemporalType.DATE)
-    private Date dataCadastro;
-
-    @Column(nullable = false, length = 30)
+    @Column(nullable = true, length = 30)
     private String situacao;
 
     @Column(nullable = false, length = 20)
     private String tipo;
 
-    @Column(nullable = false, length = 20)
+    @Column(nullable = true, length = 20)
     private String valorDaBusca;
 
+    @Column(nullable = false, length = 500)
+    private String descricaoDaBusca;
+
     @OneToOne
-    @JoinColumn(nullable = false)
+    @JoinColumn
     private Pessoa pessoa;
-
-    public Date getDataCadastro() {
-        return dataCadastro;
-    }
-
-    public void setDataCadastro(Date dataCadastro) {
-        this.dataCadastro = dataCadastro;
-    }
 
     public String getSituacao() {
         return situacao;
@@ -68,5 +61,13 @@ public class ClienteBusca extends GenericDomain {
 
     public void setValorDaBusca(String valorDaBusca) {
         this.valorDaBusca = valorDaBusca;
+    }
+
+    public String getDescricaoDaBusca() {
+        return descricaoDaBusca;
+    }
+
+    public void setDescricaoDaBusca(String descricaoDaBusca) {
+        this.descricaoDaBusca = descricaoDaBusca;
     }
 }

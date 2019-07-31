@@ -35,21 +35,22 @@
         <!--Mapeando as classes-->
         <mapping class="br.com.imobisoftware.domain.Cidade"/>
         <mapping class="br.com.imobisoftware.domain.Cliente"/>
+        <mapping class="br.com.imobisoftware.domain.ClienteBusca"/>
+        <mapping class="br.com.imobisoftware.domain.Conjugue"/>
         <mapping class="br.com.imobisoftware.domain.Endereco"/>
         <mapping class="br.com.imobisoftware.domain.Estado"/>
         <mapping class="br.com.imobisoftware.domain.Fabricante"/>
         <mapping class="br.com.imobisoftware.domain.Funcionario"/>
+        <mapping class="br.com.imobisoftware.domain.Inquilino"/>
+        <mapping class="br.com.imobisoftware.domain.ImovelVenda"/>
+        <mapping class="br.com.imobisoftware.domain.ImovelLocacao"/>
         <mapping class="br.com.imobisoftware.domain.ItemVenda"/>
         <mapping class="br.com.imobisoftware.domain.Pessoa"/>
         <mapping class="br.com.imobisoftware.domain.Produto"/>
         <mapping class="br.com.imobisoftware.domain.Usuario"/>
         <mapping class="br.com.imobisoftware.domain.Venda"/>
         <mapping class="br.com.imobisoftware.domain.Imovel"/>
-        <mapping class="br.com.imobisoftware.domain.Conjugue"/>
-        <mapping class="br.com.imobisoftware.domain.ImovelVenda"/>
-        <mapping class="br.com.imobisoftware.domain.ImovelLocacao"/>
         <mapping class="br.com.imobisoftware.domain.Proprietario"/>
-        <mapping class="br.com.imobisoftware.domain.Inquilino"/>
 
 
 

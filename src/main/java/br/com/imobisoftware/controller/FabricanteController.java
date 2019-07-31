@@ -46,7 +46,7 @@ public class FabricanteController implements Serializable {
 
     public void limparTela() {
         FabricanteDAO fabricanteDAO = new FabricanteDAO();
-        fabricantes = fabricanteDAO.listar();
+        fabricantes = fabricanteDAO.listar("nome");
     }
 
     public void excluir(ActionEvent evento) {
@@ -66,7 +66,7 @@ public class FabricanteController implements Serializable {
     public void listar() {
         try {
             FabricanteDAO fabricanteDAO = new FabricanteDAO();
-            fabricantes = fabricanteDAO.listar();
+            fabricantes = fabricanteDAO.listar("nome");
         } catch (RuntimeException ex) {
             ex.printStackTrace();
         }

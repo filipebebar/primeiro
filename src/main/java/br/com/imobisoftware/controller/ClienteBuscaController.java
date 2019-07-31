@@ -1,9 +1,8 @@
 package br.com.imobisoftware.controller;
 
 import br.com.imobisoftware.dao.ClienteBuscaDAO;
-import br.com.imobisoftware.dao.EnderecoDAO;
+import br.com.imobisoftware.dao.PessoaDAO;
 import br.com.imobisoftware.domain.ClienteBusca;
-import br.com.imobisoftware.domain.Endereco;
 import br.com.imobisoftware.domain.Pessoa;
 import org.omnifaces.util.Messages;
 
@@ -12,7 +11,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 import java.io.Serializable;
-import java.util.EventListener;
 import java.util.List;
 
 /**
@@ -25,62 +23,56 @@ import java.util.List;
 @ManagedBean
 @ViewScoped
 public class ClienteBuscaController implements Serializable {
-    
-    private List<ClienteBusca> clientesBusca;
-    private List<Endereco> enderecos;
-    private ClienteBusca clienteBusca;
-    private EventListener evento;
+
     private Pessoa pessoa;
-
-
-
-
+    private ClienteBusca clienteBusca;
+    private PessoaController pessoaController;
+    private List<ClienteBusca> clienteBuscaList;
+    private List<Pessoa> pessoas;
 
     public void novo() {
         try {
             clienteBusca = new ClienteBusca();
-            EnderecoDAO enderecoDAO = new EnderecoDAO();
-            enderecos = enderecoDAO.listar();
+            pessoa = new Pessoa();
         } catch (RuntimeException erro) {
-            Messages.addFlashGlobalError("Ocorreu um erro ao gerar uma nova clienteBusca");
+            Messages.addGlobalError("Ocorreu um erro ao tentar criar um novo cliente");
             erro.printStackTrace();
         }
+
     }
 
     @PostConstruct
     public void listar() {
         try {
-            ClienteBuscaDAO cidadeDAO = new ClienteBuscaDAO();
-            clientesBusca = cidadeDAO.listar();
+            PessoaDAO pessoaDAO = new PessoaDAO();
+            pessoas = pessoaDAO.listar("dataDeCadastro");
         } catch (RuntimeException erro) {
-            Messages.addFlashGlobalError("Ocorreu um erro ao tentar listar as cidades");
+            Messages.addGlobalError("Ocorreu um erro ao tentar listar os clientes");
             erro.printStackTrace();
         }
     }
 
     public void salvar() {
         try {
-            validacao();
-            ClienteBuscaDAO cidadeDAO = new ClienteBuscaDAO();
-            cidadeDAO.merge(clienteBusca);
-            limparTela();
-            novo();
-            Messages.addGlobalInfo("ClienteBusca salva com Sucesso!");
-        } catch (RuntimeException ex) {
-            Messages.addGlobalError("Ocorreu um erro ao salvar a clienteBusca!");
-            ex.printStackTrace();
+            PessoaDAO pessoaDAO = new PessoaDAO();
+            ClienteBuscaDAO clienteBuscaDAO = new ClienteBuscaDAO();
+            clienteBuscaDAO.merge(clienteBusca);
+            pessoaDAO.merge(pessoa);
+        } catch (RuntimeException erro) {
+            Messages.addGlobalError("Ocorreu um erro ao tentar salvar o cliente");
+            erro.printStackTrace();
         }
     }
 
     public void excluir(ActionEvent evento) {
         try {
             clienteBusca = (ClienteBusca) evento.getComponent().getAttributes().get("selecionado");
-            ClienteBuscaDAO cidadeDAO = new ClienteBuscaDAO();
-            cidadeDAO.excluir(clienteBusca);
+            ClienteBuscaDAO clienteBuscaDAO = new ClienteBuscaDAO();
+            clienteBuscaDAO.excluir(clienteBusca);
             limparTela();
-            Messages.addGlobalInfo("ClienteBusca Excluída com sucesso");
+            Messages.addGlobalInfo("Cidade Excluída com sucesso");
         } catch (RuntimeException ex) {
-            Messages.addGlobalError("Ocorreu um erro ao excluir a clienteBusca!");
+            Messages.addGlobalError("Ocorreu um erro ao excluir a cidade!");
             ex.printStackTrace();
         }
     }
@@ -88,44 +80,18 @@ public class ClienteBuscaController implements Serializable {
     public void editar(ActionEvent evento) {
         try {
             clienteBusca = (ClienteBusca) evento.getComponent().getAttributes().get("selecionado");
-            EnderecoDAO enderecoDAO = new EnderecoDAO();
-            enderecos = enderecoDAO.listar();
         }catch (RuntimeException ex){
-            Messages.addGlobalError("Ocorreu um erro ao editar a clienteBusca!");
+            Messages.addGlobalError("Ocorreu um erro ao editar a cidade!");
             ex.printStackTrace();
         }
     }
 
     public void limparTela() {
-        ClienteBuscaDAO cidadeDAO = new ClienteBuscaDAO();
-        clientesBusca = cidadeDAO.listar();
-        EnderecoDAO enderecoDAO = new EnderecoDAO();
-        enderecos = enderecoDAO.listar();
-    }
 
-    public boolean validacao() {
-        if (getClienteBusca().getPessoa().getNome().isEmpty()) {
-            Messages.addGlobalError("O campo nome esta vazio!");
-        }
-        return false;
     }
 
 
-    public List<ClienteBusca> getClientesBusca() {
-        return clientesBusca;
-    }
-
-    public void setClientesBusca(List<ClienteBusca> clientesBusca) {
-        this.clientesBusca = clientesBusca;
-    }
-
-    public List<Endereco> getEnderecos() {
-        return enderecos;
-    }
-
-    public void setEnderecos(List<Endereco> enderecos) {
-        this.enderecos = enderecos;
-    }
+    //getters and setters
 
     public ClienteBusca getClienteBusca() {
         return clienteBusca;
@@ -133,5 +99,29 @@ public class ClienteBuscaController implements Serializable {
 
     public void setClienteBusca(ClienteBusca clienteBusca) {
         this.clienteBusca = clienteBusca;
+    }
+
+    public List<ClienteBusca> getClienteBuscaList() {
+        return clienteBuscaList;
+    }
+
+    public void setClienteBuscaList(List<ClienteBusca> clienteBuscaList) {
+        this.clienteBuscaList = clienteBuscaList;
+    }
+
+    public Pessoa getPessoa() {
+        return pessoa;
+    }
+
+    public void setPessoa(Pessoa pessoa) {
+        this.pessoa = pessoa;
+    }
+
+    public List<Pessoa> getPessoas() {
+        return pessoas;
+    }
+
+    public void setPessoas(List<Pessoa> pessoas) {
+        this.pessoas = pessoas;
     }
 }

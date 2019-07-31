@@ -3,6 +3,7 @@ package br.com.imobisoftware.domain;
 import javax.persistence.*;
 import java.util.Date;
 
+
 /**
  * Project Name: Drogaria_treinando
  * User: Filipe Barbosa
@@ -16,22 +17,22 @@ public class Pessoa extends GenericDomain {
     @Column(length = 50, nullable = false)
     private String nome;
 
-    @Column(length = 11, nullable = false)
+    @Column(length = 11, nullable = true)
     private String cpf;
 
-    @Column(length = 10, nullable = false)
+    @Column(length = 10, nullable = true)
     private String rg;
 
     @Column(length = 10, nullable = false)
     private String telefone;
 
     @Column(length = 11, nullable = false)
-    private String celular;
+    private String telefone_secundario;
 
-    @Column(length = 20, nullable = false)
+    @Column(length = 20, nullable = true)
     private String email;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     @Temporal(TemporalType.DATE)
     private Date dataDeNascimento;
 
@@ -40,7 +41,7 @@ public class Pessoa extends GenericDomain {
     private Date dataDeCadastro;
 
     @ManyToOne
-    @JoinColumn(nullable = false)
+    @JoinColumn
     private Endereco endereco;
 
     public String getNome() {
@@ -75,14 +76,6 @@ public class Pessoa extends GenericDomain {
         this.telefone = telefone;
     }
 
-    public String getCelular() {
-        return celular;
-    }
-
-    public void setCelular(String celular) {
-        this.celular = celular;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -114,4 +107,13 @@ public class Pessoa extends GenericDomain {
     public void setDataDeCadastro(Date dataDeCadastro) {
         this.dataDeCadastro = dataDeCadastro;
     }
+
+    public String getTelefone_secundario() {
+        return telefone_secundario;
+    }
+
+    public void setTelefone_secundario(String telefone_secundario) {
+        this.telefone_secundario = telefone_secundario;
+    }
+
 }

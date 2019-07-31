@@ -46,7 +46,7 @@ public class EstadoController implements Serializable {
 
     public void limparTela() {
         EstadoDAO estadoDAO = new EstadoDAO();
-        estados = estadoDAO.listar();
+        estados = estadoDAO.listar("nome");
     }
 
     public void excluir(ActionEvent evento) {
@@ -66,7 +66,7 @@ public class EstadoController implements Serializable {
     public void listar() {
         try {
             EstadoDAO estadoDAO = new EstadoDAO();
-            estados = estadoDAO.listar();
+            estados = estadoDAO.listar("nome");
         } catch (RuntimeException ex) {
             ex.printStackTrace();
         }
