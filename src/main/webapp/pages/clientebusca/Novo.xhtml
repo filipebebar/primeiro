@@ -19,45 +19,74 @@
                 <h:panelGrid id="cadastroPanel" columns="2">
                     <p:outputLabel value="Nome:"/>
                     <p:inputText maxlength="50" size="30"
-                                 value="#{clienteBuscaController.clienteBusca.nome}"/>
+                                 value="#{clienteBuscaController.clienteBusca.nome}" required="true"/>
 
                     <p:outputLabel value="Telefone Principal:"/>
                     <p:inputMask mask="(99)99999-9999" maxlength="10" size="10"
-                                 value="#{clienteBuscaController.clienteBusca.telefone}"/>
+                                 value="#{clienteBuscaController.clienteBusca.telefone}" required="true"/>
 
                     <p:outputLabel value="Telefone 2:"/>
                     <p:inputMask mask="(99)99999-9999" maxlength="10" size="10"
                                  value="#{clienteBuscaController.clienteBusca.telefone_secundario}"/>
 
                     <p:outputLabel value="Tipo:"/>
-                    <p:inputText maxlength="10" size="10"
-                                 value="#{clienteBuscaController.clienteBusca.tipo}"/>
+                    <p:selectOneMenu filter="true"
+                                     value="#{clienteBuscaController.clienteBusca.tipo}"
+                                     converter="omnifaces.SelectItemsConverter"
+                                     required="true"
+                                     requiredMessage="O campo Estado é obrigatório!">
+                        <f:selectItem noSelectionOption="true"
+                                      itemLabel="Selecione.."/>
+                        <f:selectItem itemLabel="Venda/Comercial" itemValue="teste1"/>
+                        <f:selectItem itemLabel="Venda/Residencial" itemValue="teste1"/>
+                        <f:selectItem itemLabel="Locação/Comercial" itemValue="teste1"/>
+                        <f:selectItem itemLabel="Locação/Residencial" itemValue="teste1"/>
+                    </p:selectOneMenu>
 
-                    <p:outputLabel value="Data De Cadastro:"/>
-                    <p:inputText value="#{clienteBuscaController.clienteBusca.dataDeCadastro}" size="6"
-                                 styleClass="data"/>
-
-                    <p:outputLabel value="Data De Cadastro:" for="data"/>
-                    <p:inputMask mask="99/99/9999" value="#{clienteBuscaController.clienteBusca.dataDeCadastro}"
-                                 size="6" id="data"/>
+                    <p:outputLabel value="Valor:"/>
+                    <p:inputMask mask="R$ 999.999,99" maxlength="11" size="11"
+                                 value="#{clienteBuscaController.clienteBusca.nome}" required="true">
+                        <f:convertNumber type="currency" locale="pt_BR" minFractionDigits="2"/>
+                    </p:inputMask>
 
                     <p:outputLabel value="Descrição da busca"/>
                     <p:inputTextarea rows="6" cols="20" counter="display" counterTemplate="{0} characters remaining."
-                                     maxlength="500"/>
+                                     maxlength="500"
+                                     value="#{clienteBuscaController.clienteBusca.descricaoDaBusca}"
+                                     required="true"/>
+                    <h:outputText value=""/>
                     <h:outputText id="display"/>
 
+                    <p:outputLabel value="Data De Cadastro:" for="data" required="true"/>
+                    <p:inputMask mask="99/99/9999" value="#{clienteBuscaController.clienteBusca.dataDeCadastro}"
+                                 size="6" id="data">
+                        <f:convertDateTime locale="pt_BR"/>
+                    </p:inputMask>
 
-                    <div>
-                        <p:commandButton value="salvar" actionListener="#{clienteBuscaController.salvar}"/>
-                        <p:commandButton value="Cancelar"/>
-                    </div>
+                    <p:outputLabel value="Situação:"/>
+                    <p:selectOneMenu filter="true"
+                                     value="#{clienteBuscaController.clienteBusca.tipo}"
+                                     converter="omnifaces.SelectItemsConverter"
+                                     required="true"
+                                     requiredMessage="O campo Estado é obrigatório!">
+                        <f:selectItem noSelectionOption="true"
+                                      itemLabel="Selecione.."/>
+                        <f:selectItem itemLabel="Buscando" itemValue="teste1"/>
+                        <f:selectItem itemLabel="Documentação" itemValue="teste1"/>
+                        <f:selectItem itemLabel="Visitando" itemValue="teste1"/>
+                        <f:selectItem itemLabel="Desistiu" itemValue="teste1"/>
+                        <f:selectItem itemLabel="Aguardando" itemValue="teste1"/>
+                    </p:selectOneMenu>
 
                 </h:panelGrid>
 
 
                 <!--Rodapé do panel principal-->
                 <f:facet name="footer">
-                    <p:button value="Voltar" outcome="/pages/clientebusca/Listar"/>
+                    <h:panelGrid columns="2">
+                        <p:commandButton value="salvar" actionListener="#{clienteBuscaController.salvar}"/>
+                        <p:button value="Voltar" outcome="/pages/clientebusca/Listar"/>
+                    </h:panelGrid>
                 </f:facet>
             </p:panel>
         </h:form>
