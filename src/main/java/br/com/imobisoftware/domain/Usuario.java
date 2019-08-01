@@ -13,7 +13,7 @@ import javax.persistence.OneToOne;
 
 @Entity
 @SuppressWarnings("Serial")
-public class Usuario extends GenericDomain {
+public class Usuario extends GenericPessoa {
 
     @Column(nullable = false, length = 32)
     private String senha;
@@ -23,10 +23,6 @@ public class Usuario extends GenericDomain {
 
     @Column(nullable = false)
     private Boolean ativo;
-
-    @OneToOne
-    @JoinColumn(nullable = false)
-    private Pessoa pessoa;
 
     public String getSenha() {
         return senha;
@@ -50,13 +46,5 @@ public class Usuario extends GenericDomain {
 
     public void setAtivo(Boolean ativo) {
         this.ativo = ativo;
-    }
-
-    public Pessoa getPessoa() {
-        return pessoa;
-    }
-
-    public void setPessoa(Pessoa pessoa) {
-        this.pessoa = pessoa;
     }
 }

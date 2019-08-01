@@ -37,11 +37,11 @@
                              id="dataTableListagem">
 
                     <p:column headerText="Código">
-                        <h:outputText value="#{cliente.pessoa.codigo}"/>
+                        <h:outputText value="#{cliente.codigo}"/>
                     </p:column>
 
-                    <p:column headerText="Nome" sortBy="#{cliente.pessoa.nome}">
-                        <h:outputText value="#{cliente.pessoa.nome}"/>
+                    <p:column headerText="Nome" sortBy="#{cliente.nome}">
+                        <h:outputText value="#{cliente.nome}"/>
                     </p:column>
 
                     <p:column headerText="Tipo" sortBy="#{cliente.tipo}">
@@ -55,7 +55,7 @@
                     </p:column>
 
                     <p:column headerText="Data de Cadastro" sortBy="#{cliente.tipo}">
-                        <h:outputText value="#{cliente.pessoa.dataDeCadastro}">
+                        <h:outputText value="#{cliente.dataDeCadastro}">
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </h:outputText>
                     </p:column>

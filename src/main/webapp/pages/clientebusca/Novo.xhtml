@@ -16,12 +16,43 @@
 
         <h:form id="formCadastro">
             <p:panel header="Novo Cliente" style="margin-top: 20px">
+                <h:panelGrid id="cadastroPanel" columns="2">
+                    <p:outputLabel value="Nome:"/>
+                    <p:inputText maxlength="50" size="30"
+                                 value="#{clienteBuscaController.clienteBusca.nome}"/>
 
-                <p:outputLabel value="Nome:"/>
-                <p:inputText maxlength="50" size="30"
-                             value="#{pessoaController.pessoa.nome}"/>
-                <p:commandButton value="salvar" actionListener="#{pessoaController.salvar}"/>
+                    <p:outputLabel value="Telefone Principal:"/>
+                    <p:inputMask mask="(99)99999-9999" maxlength="10" size="10"
+                                 value="#{clienteBuscaController.clienteBusca.telefone}"/>
 
+                    <p:outputLabel value="Telefone 2:"/>
+                    <p:inputMask mask="(99)99999-9999" maxlength="10" size="10"
+                                 value="#{clienteBuscaController.clienteBusca.telefone_secundario}"/>
+
+                    <p:outputLabel value="Tipo:"/>
+                    <p:inputText maxlength="10" size="10"
+                                 value="#{clienteBuscaController.clienteBusca.tipo}"/>
+
+                    <p:outputLabel value="Data De Cadastro:"/>
+                    <p:inputText value="#{clienteBuscaController.clienteBusca.dataDeCadastro}" size="6"
+                                 styleClass="data"/>
+
+                    <p:outputLabel value="Data De Cadastro:" for="data"/>
+                    <p:inputMask mask="99/99/9999" value="#{clienteBuscaController.clienteBusca.dataDeCadastro}"
+                                 size="6" id="data"/>
+
+                    <p:outputLabel value="Descrição da busca"/>
+                    <p:inputTextarea rows="6" cols="20" counter="display" counterTemplate="{0} characters remaining."
+                                     maxlength="500"/>
+                    <h:outputText id="display"/>
+
+
+                    <div>
+                        <p:commandButton value="salvar" actionListener="#{clienteBuscaController.salvar}"/>
+                        <p:commandButton value="Cancelar"/>
+                    </div>
+
+                </h:panelGrid>
 
 
                 <!--Rodapé do panel principal-->

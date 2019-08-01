@@ -1,8 +1,9 @@
 package br.com.imobisoftware.domain;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
-
+import java.util.Objects;
 
 /**
  * Project Name: Drogaria_treinando
@@ -10,9 +11,13 @@ import java.util.Date;
  * Date: 19/07/2019
  */
 
-@Entity
+@MappedSuperclass
 @SuppressWarnings("Serial")
-public class Pessoa extends GenericDomain {
+public class GenericPessoa implements Serializable {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long codigo;
 
     @Column(length = 50, nullable = false)
     private String nome;
@@ -39,10 +44,6 @@ public class Pessoa extends GenericDomain {
     @Column(nullable = false)
     @Temporal(TemporalType.DATE)
     private Date dataDeCadastro;
-
-    @ManyToOne
-    @JoinColumn
-    private Endereco endereco;
 
     public String getNome() {
         return nome;
@@ -84,14 +85,6 @@ public class Pessoa extends GenericDomain {
         this.email = email;
     }
 
-    public Endereco getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(Endereco endereco) {
-        this.endereco = endereco;
-    }
-
     public Date getDataDeNascimento() {
         return dataDeNascimento;
     }
@@ -116,4 +109,33 @@ public class Pessoa extends GenericDomain {
         this.telefone_secundario = telefone_secundario;
     }
 
+
+    public Long getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(Long codigo) {
+        this.codigo = codigo;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s[codigo=%d]", getClass().getSimpleName(), getCodigo());
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof GenericDomain)) return false;
+        GenericDomain that = (GenericDomain) o;
+        return Objects.equals(getCodigo(), that.getCodigo());
+    }
 }

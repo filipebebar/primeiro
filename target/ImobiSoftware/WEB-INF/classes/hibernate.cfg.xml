@@ -45,7 +45,6 @@
         <mapping class="br.com.imobisoftware.domain.ImovelVenda"/>
         <mapping class="br.com.imobisoftware.domain.ImovelLocacao"/>
         <mapping class="br.com.imobisoftware.domain.ItemVenda"/>
-        <mapping class="br.com.imobisoftware.domain.Pessoa"/>
         <mapping class="br.com.imobisoftware.domain.Produto"/>
         <mapping class="br.com.imobisoftware.domain.Usuario"/>
         <mapping class="br.com.imobisoftware.domain.Venda"/>

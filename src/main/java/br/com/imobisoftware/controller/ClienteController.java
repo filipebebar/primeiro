@@ -1,9 +1,7 @@
 package br.com.imobisoftware.controller;
 
 import br.com.imobisoftware.dao.ClienteDAO;
-import br.com.imobisoftware.dao.PessoaDAO;
 import br.com.imobisoftware.domain.Cliente;
-import br.com.imobisoftware.domain.Pessoa;
 import org.omnifaces.util.Messages;
 
 import javax.annotation.PostConstruct;
@@ -26,7 +24,6 @@ public class ClienteController implements Serializable {
     private Cliente cliente;
 
     private List<Cliente> clientes;
-    private List<Pessoa> pessoas;
 
 
 
@@ -44,9 +41,6 @@ public class ClienteController implements Serializable {
     public void novo() {
         try {
             cliente = new Cliente();
-
-            PessoaDAO pessoaDAO = new PessoaDAO();
-            pessoas = pessoaDAO.listar("nome");
         } catch (RuntimeException erro) {
             Messages.addGlobalError("Ocorreu um erro ao tentar criar um novo cliente");
             erro.printStackTrace();
@@ -61,9 +55,6 @@ public class ClienteController implements Serializable {
             cliente = new Cliente();
 
             clientes = clienteDAO.listar("dataCadastro");
-
-            PessoaDAO pessoaDAO = new PessoaDAO();
-            pessoas = pessoaDAO.listar("nome");
 
             Messages.addGlobalInfo("Cliente salvo com sucesso");
         } catch (RuntimeException erro) {
@@ -90,13 +81,5 @@ public class ClienteController implements Serializable {
 
     public void setClientes(List<Cliente> clientes) {
         this.clientes = clientes;
-    }
-
-    public List<Pessoa> getPessoas() {
-        return pessoas;
-    }
-
-    public void setPessoas(List<Pessoa> pessoas) {
-        this.pessoas = pessoas;
     }
 }

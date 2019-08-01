@@ -17,10 +17,6 @@ public class Fiador extends GenericDomain{
     private Conjugue conjugue;
 
     @JoinColumn
-    @OneToOne
-    private Pessoa pessoa;
-
-    @JoinColumn
     @ManyToOne
     private Imovel imovel;
 
@@ -39,14 +35,6 @@ public class Fiador extends GenericDomain{
 
     public void setConjugue(Conjugue conjugue) {
         this.conjugue = conjugue;
-    }
-
-    public Pessoa getPessoa() {
-        return pessoa;
-    }
-
-    public void setPessoa(Pessoa pessoa) {
-        this.pessoa = pessoa;
     }
 
     public Imovel getImovel() {

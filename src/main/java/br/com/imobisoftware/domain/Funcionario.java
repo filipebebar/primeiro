@@ -20,9 +20,6 @@ public class Funcionario extends GenericDomain {
     @Temporal(TemporalType.DATE)
     private Date dataDeAdmissao;
 
-    @OneToOne
-    @JoinColumn(nullable = false)
-    private Pessoa pessoa;
 
     public String getCarteiraDeTrabalho() {
         return carteiraDeTrabalho;
@@ -40,11 +37,4 @@ public class Funcionario extends GenericDomain {
         this.dataDeAdmissao = dataDeAdmissao;
     }
 
-    public Pessoa getPessoa() {
-        return pessoa;
-    }
-
-    public void setPessoa(Pessoa pessoa) {
-        this.pessoa = pessoa;
-    }
 }

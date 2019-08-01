@@ -1,9 +1,7 @@
 package br.com.imobisoftware.controller;
 
 import br.com.imobisoftware.dao.ClienteBuscaDAO;
-import br.com.imobisoftware.dao.PessoaDAO;
 import br.com.imobisoftware.domain.ClienteBusca;
-import br.com.imobisoftware.domain.Pessoa;
 import org.omnifaces.util.Messages;
 
 import javax.annotation.PostConstruct;
@@ -24,16 +22,12 @@ import java.util.List;
 @ViewScoped
 public class ClienteBuscaController implements Serializable {
 
-    private Pessoa pessoa;
     private ClienteBusca clienteBusca;
-    private PessoaController pessoaController;
     private List<ClienteBusca> clienteBuscaList;
-    private List<Pessoa> pessoas;
 
     public void novo() {
         try {
             clienteBusca = new ClienteBusca();
-            pessoa = new Pessoa();
         } catch (RuntimeException erro) {
             Messages.addGlobalError("Ocorreu um erro ao tentar criar um novo cliente");
             erro.printStackTrace();
@@ -43,9 +37,8 @@ public class ClienteBuscaController implements Serializable {
 
     @PostConstruct
     public void listar() {
+            clienteBusca = new ClienteBusca();
         try {
-            PessoaDAO pessoaDAO = new PessoaDAO();
-            pessoas = pessoaDAO.listar("dataDeCadastro");
         } catch (RuntimeException erro) {
             Messages.addGlobalError("Ocorreu um erro ao tentar listar os clientes");
             erro.printStackTrace();
@@ -54,10 +47,12 @@ public class ClienteBuscaController implements Serializable {
 
     public void salvar() {
         try {
-            PessoaDAO pessoaDAO = new PessoaDAO();
+
             ClienteBuscaDAO clienteBuscaDAO = new ClienteBuscaDAO();
             clienteBuscaDAO.merge(clienteBusca);
-            pessoaDAO.merge(pessoa);
+            limparTela();
+            novo();
+            Messages.addGlobalError("Salvo com sucesso");
         } catch (RuntimeException erro) {
             Messages.addGlobalError("Ocorreu um erro ao tentar salvar o cliente");
             erro.printStackTrace();
@@ -70,7 +65,7 @@ public class ClienteBuscaController implements Serializable {
             ClienteBuscaDAO clienteBuscaDAO = new ClienteBuscaDAO();
             clienteBuscaDAO.excluir(clienteBusca);
             limparTela();
-            Messages.addGlobalInfo("Cidade Excluída com sucesso");
+            Messages.addGlobalInfo("Cliente Excluído com sucesso");
         } catch (RuntimeException ex) {
             Messages.addGlobalError("Ocorreu um erro ao excluir a cidade!");
             ex.printStackTrace();
@@ -87,7 +82,8 @@ public class ClienteBuscaController implements Serializable {
     }
 
     public void limparTela() {
-
+        ClienteBuscaDAO clienteBuscaDAO = new ClienteBuscaDAO();
+        clienteBuscaList = clienteBuscaDAO.listar("nome");
     }
 
 
@@ -109,19 +105,4 @@ public class ClienteBuscaController implements Serializable {
         this.clienteBuscaList = clienteBuscaList;
     }
 
-    public Pessoa getPessoa() {
-        return pessoa;
-    }
-
-    public void setPessoa(Pessoa pessoa) {
-        this.pessoa = pessoa;
-    }
-
-    public List<Pessoa> getPessoas() {
-        return pessoas;
-    }
-
-    public void setPessoas(List<Pessoa> pessoas) {
-        this.pessoas = pessoas;
-    }
 }

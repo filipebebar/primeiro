@@ -12,11 +12,7 @@ import javax.persistence.ManyToOne;
 
 @Entity
 @SuppressWarnings("Serial")
-public class Proprietario extends GenericDomain{
-
-    @ManyToOne
-    @JoinColumn(nullable = false)
-    private Pessoa pessoa;
+public class Proprietario extends GenericPessoa{
 
     @ManyToOne
     @JoinColumn
@@ -31,13 +27,6 @@ public class Proprietario extends GenericDomain{
 
 
     //getters and setters
-    public Pessoa getPessoa() {
-        return pessoa;
-    }
-
-    public void setPessoa(Pessoa pessoa) {
-        this.pessoa = pessoa;
-    }
 
     public ImovelLocacao getImovelLocacao() {
         return imovelLocacao;
