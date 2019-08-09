@@ -15,7 +15,7 @@
 
         <h:form id="formListagem">
 
-            <p:panel header="Cliente Busca - Listagem" style="margin-top: 20px">
+            <p:panel header="Cliente Busca - Listagem" style="margin-top: 20px" id="panelListam">
 
                 <p:toolbar style="margin-top: 5px; margin-bottom: 5px" >
                     <p:toolbarGroup align="right">
@@ -71,14 +71,12 @@
 
                         <p:commandButton icon="ui-icon-pencil"
                                          actionListener="#{clienteBuscaController.editar}"
-                                         update=":formCadastro:panelGridCadastro"
                                          oncomplete="PF('dialogo').show();">
                             <f:attribute name="selecionado" value="#{cliente}"/>
                         </p:commandButton>
 
                         <p:commandButton icon="ui-icon-trash"
-                                         actionListener="#{clienteBuscaController.excluir}"
-                                         update=":mensagem :formListagem:dataTableListagem">
+                                         actionListener="#{clienteBuscaController.excluir}">
                             <p:confirm header="Confirmação"
                                        message="Deseja excluir o estado ?!" icon="ui-icon-alert"/>
                             <f:attribute name="selecionado" value="#{cliente}"/>

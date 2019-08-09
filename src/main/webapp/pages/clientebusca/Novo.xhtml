@@ -18,7 +18,7 @@
             <p:panel header="Novo Cliente" style="margin-top: 20px">
                 <h:panelGrid id="cadastroPanel" columns="2">
                     <p:outputLabel value="Nome:"/>
-                    <p:inputText maxlength="50" size="30"
+                    <p:inputText maxlength="70" size="30"
                                  value="#{clienteBuscaController.clienteBusca.nome}" required="true"/>
 
                     <p:outputLabel value="Telefone Principal:"/>
@@ -36,18 +36,21 @@
                                      required="true"
                                      requiredMessage="O campo Estado é obrigatório!">
                         <f:selectItem noSelectionOption="true"
-                                      itemLabel="Selecione.."/>
-                        <f:selectItem itemLabel="Venda/Comercial" itemValue="teste1"/>
-                        <f:selectItem itemLabel="Venda/Residencial" itemValue="teste1"/>
-                        <f:selectItem itemLabel="Locação/Comercial" itemValue="teste1"/>
-                        <f:selectItem itemLabel="Locação/Residencial" itemValue="teste1"/>
+                                      itemLabel="Selecione.." itemValue=""/>
+                        <f:selectItem itemLabel="Venda/Comercial" itemValue="Venda/Comercial"/>
+                        <f:selectItem itemLabel="Venda/Residencial" itemValue="Venda/Residencial"/>
+                        <f:selectItem itemLabel="Locação/Comercial" itemValue="Locação/Comercial"/>
+                        <f:selectItem itemLabel="Locação/Residencial" itemValue="Locação/Residencial"/>
                     </p:selectOneMenu>
 
                     <p:outputLabel value="Valor:"/>
-                    <p:inputMask mask="R$ 999.999,99" maxlength="11" size="11"
-                                 value="#{clienteBuscaController.clienteBusca.nome}" required="true">
-                        <f:convertNumber type="currency" locale="pt_BR" minFractionDigits="2"/>
-                    </p:inputMask>
+                    <p:inputNumber value="#{clienteBuscaController.clienteBusca.valorDaBusca}"
+                                   symbol="R$ "
+                                   symbolPosition=""
+                                   minValue="0"
+                                   decimalSeparator=","
+                                   thousandSeparator="."/>
+
 
                     <p:outputLabel value="Descrição da busca"/>
                     <p:inputTextarea rows="6" cols="20" counter="display" counterTemplate="{0} characters remaining."
@@ -57,25 +60,25 @@
                     <h:outputText value=""/>
                     <h:outputText id="display"/>
 
-                    <p:outputLabel value="Data De Cadastro:" for="data" required="true"/>
-                    <p:inputMask mask="99/99/9999" value="#{clienteBuscaController.clienteBusca.dataDeCadastro}"
-                                 size="6" id="data">
+                    <p:outputLabel value="Data De Cadastro:" required="true"/>
+                    <p:calendar value="#{clienteBuscaController.clienteBusca.dataDeCadastro}">
                         <f:convertDateTime locale="pt_BR"/>
-                    </p:inputMask>
+                    </p:calendar>
+
 
                     <p:outputLabel value="Situação:"/>
                     <p:selectOneMenu filter="true"
-                                     value="#{clienteBuscaController.clienteBusca.tipo}"
+                                     value="#{clienteBuscaController.clienteBusca.situacao}"
                                      converter="omnifaces.SelectItemsConverter"
                                      required="true"
                                      requiredMessage="O campo Estado é obrigatório!">
                         <f:selectItem noSelectionOption="true"
-                                      itemLabel="Selecione.."/>
-                        <f:selectItem itemLabel="Buscando" itemValue="teste1"/>
-                        <f:selectItem itemLabel="Documentação" itemValue="teste1"/>
-                        <f:selectItem itemLabel="Visitando" itemValue="teste1"/>
-                        <f:selectItem itemLabel="Desistiu" itemValue="teste1"/>
-                        <f:selectItem itemLabel="Aguardando" itemValue="teste1"/>
+                                      itemLabel="Selecione.." itemValue=""/>
+                        <f:selectItem itemLabel="Buscando" itemValue="Buscando"/>
+                        <f:selectItem itemLabel="Documentação" itemValue="Documentação"/>
+                        <f:selectItem itemLabel="Visitando" itemValue="Visitando"/>
+                        <f:selectItem itemLabel="Desistiu" itemValue="Desistiu"/>
+                        <f:selectItem itemLabel="Aguardando" itemValue="Aguardando"/>
                     </p:selectOneMenu>
 
                 </h:panelGrid>

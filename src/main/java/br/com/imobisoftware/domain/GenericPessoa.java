@@ -19,7 +19,7 @@ public class GenericPessoa implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long codigo;
 
-    @Column(length = 50, nullable = false)
+    @Column(length = 70, nullable = false)
     private String nome;
 
     @Column(length = 11, nullable = true)
@@ -28,13 +28,13 @@ public class GenericPessoa implements Serializable {
     @Column(length = 10, nullable = true)
     private String rg;
 
-    @Column(length = 10, nullable = false)
+    @Column(length = 15, nullable = false)
     private String telefone;
 
-    @Column(length = 11, nullable = false)
+    @Column(length = 15, nullable = true)
     private String telefone_secundario;
 
-    @Column(length = 20, nullable = true)
+    @Column(length = 70, nullable = true)
     private String email;
 
     @Column(nullable = true)
